@@ -1,6 +1,6 @@
 #include "header.h"
 
-static void IntVectorManipulation::minSubArrayLen(const vector<int>& nums, int target) {
+void IntVectorManipulation::minSubArrayLen(const vector<int>& nums, int target) {
 
     int n=nums.size();
     int ans=INT_MAX;
@@ -9,51 +9,85 @@ static void IntVectorManipulation::minSubArrayLen(const vector<int>& nums, int t
     for(int i=0; i<n; i++){
         sum+=nums[i];
         while(sum >= target){
+            //If new range is smaller, it will replace answer
             ans=min(ans,i-k+1);
+            //Moves beginning of subarray froward
             sum-=nums[k];
             k++;
         }
     }
-    cout << (ans==INT_MAX) ? 0 : ans << endl << endl;
+    ans = (ans ==INT_MAX) ? 0 : ans;
+    cout << ans << endl << endl;
 }
 
-static void IntVectorManipulation::numSubarrayBoundedMax(const vector<int>& nums, int left, int right) {
+void IntVectorManipulation::numSubarrayBoundedMax(const vector<int>& nums, int left, int right) {
     cout << count(nums, right) - count(nums, left - 1) << endl << endl;
     //cout << # subarrays with right as max - # subarrays with left-1 as mx
 }
 
-static void IntVectorManipulation::productExceptSelf(vector<int>& nums) {
+void IntVectorManipulation::productExceptSelf(const vector<int>& nums) {
     vector<int> preProduct = makePreProduct(nums);
     vector<int> sufProduct = makeSufProduct(nums);
     vector<int> ans(nums);
-    for( int i = 0; i < ans.size(); i++ ) {
+    int n = ans.size();
+    for( int i = 0; i < n; i++ ) {
         ans[i] = preProduct[i] * sufProduct[i];
     }
     print(ans);
 }
 
-vector<int> makePreSum(const vector<int>& myArr) {
-    vector<int> preSum(myArr.size()+1, 0);
-    for(int i=0; i<myArr.size(); i++) {
+void IntVectorManipulation::printSum(const vector<int>& nums) {
+    vector<int> preSum = makePreSum(nums);
+    cout << preSum[nums.size()] << endl << endl;
+}
+
+void IntVectorManipulation::printProduct(const vector<int>& nums) {
+    vector<int> preProduct = makePreProduct(nums);
+    cout << preProduct[nums.size()] << endl << endl;
+}
+
+//PRIVATE:
+vector<int> IntVectorManipulation::makePreSum(const vector<int>& myArr) {
+    int n = myArr.size();
+    vector<int> preSum(n+1, 0);
+    for( int i=0; i<n; i++ ) {
         preSum[i+1] = preSum[i] + myArr[i];
     }
     return preSum;
 }
 
+vector<int> IntVectorManipulation::makePreProduct(const vector<int>& myArr) {
+    int n = myArr.size();
+    vector<int> preProduct(n+1, 1);
+    for( int i=0; i<n; i++ ) {
+        preProduct[i+1] = preProduct[i] * myArr[i];
+    }
+    return preProduct;
+}
+
+vector<int> IntVectorManipulation::makeSufProduct(const vector<int>& myArr) {
+    int n = myArr.size();
+    vector<int> sufProduct(n+1, 1);
+    for( int i=n-1; i>0; i-- ) {
+        sufProduct[i-1] = sufProduct[i] * myArr[i];
+    }
+    return sufProduct;
+}
+
 int IntVectorManipulation::count(const vector<int>& myArr, int max) {
-    nt count = 0, answer = 0;
+    int count = 0, answer = 0;
     for( int x : myArr ) {
         if( x <= max )
             count++;
-    else
-        count = 0;
+        else
+            count = 0;
         answer += count;
     }
     return answer;
 }
 
 void IntVectorManipulation::print(const vector<int>& myArr) {
-    cout <<  "[";
+    cout <<  "[\t";
     for( int x : myArr ) {
         cout << x << "\t";
     }
