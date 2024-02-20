@@ -18,11 +18,11 @@ void IntVectorManipulation::minSubArrayLen(const vector<int>& nums, int target) 
         }
     }
     ans = (ans ==INT_MAX) ? 0 : ans;
-    cout << ans << endl << endl;
+    cout << "Minimum subarray length: " << ans << endl << endl;
 }
 
 void IntVectorManipulation::numSubarrayBoundedMax(const vector<int>& nums, int left, int right) {
-    cout << count(nums, right) - count(nums, left - 1) << endl << endl;
+    cout << "Number of subarrays: " << count(nums, right) - count(nums, left - 1) << endl << endl;
     //cout << # subarrays with right as max - # subarrays with left-1 as mx
 }
 
@@ -34,17 +34,19 @@ void IntVectorManipulation::productExceptSelf(const vector<int>& nums) {
     for( int i = 0; i < n; i++ ) {
         ans[i] = preProduct[i] * sufProduct[i];
     }
+    cout << "Result: ";
     print(ans);
+    cout << endl << endl;
 }
 
 void IntVectorManipulation::printSum(const vector<int>& nums) {
     vector<int> preSum = makePreSum(nums);
-    cout << preSum[nums.size()] << endl << endl;
+    cout << "Sum: " << preSum[nums.size()] << endl << endl;
 }
 
 void IntVectorManipulation::printProduct(const vector<int>& nums) {
     vector<int> preProduct = makePreProduct(nums);
-    cout << preProduct[nums.size()] << endl << endl;
+    cout << "Product: " << preProduct[nums.size()] << endl << endl;
 }
 
 void IntVectorManipulation::print(const vector<int>& myArr) {
