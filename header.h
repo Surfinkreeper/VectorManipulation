@@ -14,6 +14,7 @@
 #include <iostream>
 #include <vector>
 #include <limits.h>
+#include <algorithm>
 using namespace std;
 
 class IntVectorManipulation {
@@ -44,6 +45,8 @@ class Interface {
         void printVectors();
         vector<int> returnChosenVector();
         bool isEmpty();
+        int takeValidInput();                            //Asks user for an Int input
+        int takeValidInputInRange(int low, int high);    //Asks user for an Int input and forces within range
         enum MainMenuOption {
             Exit,
             Add_Vector,

@@ -11,10 +11,8 @@ Interface::~Interface() {}
 void Interface::run() {
     int userInput;
     MainMenuOption menuInput = Print_Current_Vectors;
-    bool menuInputValid;
 
     while (menuInput != Exit) {
-        menuInputValid = false;
         
         cout << "Main Menu:\n";
         cout << "1 - Add a Vector\n";
@@ -28,20 +26,8 @@ void Interface::run() {
         cout << "0 - Exit\n\n";
         
         // Checks validity
-        while (!menuInputValid) {
-            cout << "Enter a choice (0-5): ";   //Edit upper bound to add more options
-            cin >> userInput;
-            cin.ignore();
-            
-            if (userInput < 0 || userInput > 5) {   //Edit upper bound to add more options
-                cout << "Please enter a valid integer.\n";
-                continue;
-            }
-            
-            menuInputValid = true;
-            menuInput = MainMenuOption(userInput);
-            cout << "\n\n";
-        }
+        cout << "Enter an option (0-8): ";
+        menuInput = MainMenuOption(takeValidInputInRange(0,8));
         
         switch (menuInput) {
             case Add_Vector:
@@ -65,6 +51,8 @@ void Interface::run() {
                 break;
             case Min_Subarray:
                 if(!isEmpty()) {
+                    int target = takeValidInput();
+                    IntVectorManipulation::minSubArrayLen(returnChosenVector(), target);
                 }
             case Exit:
                 break;
@@ -84,17 +72,7 @@ bool Interface::addVector() {
 
     cout << "Enter " << numberOfElements << " numbers:\n";
     for (int i =  0; i < numberOfElements; i++) {
-        while (true) {
-            cin >> input;
-            if (!cin.fail()) {
-                break;                                                    // If the input was valid, break the loop
-            }
-            else {
-                cout << "Invalid input. Please enter an integer.\n";
-                cin.clear();                                              // Clear the error flags
-                cin.ignore(100000000, '\n');      // Ignore the rest of the line
-            }
-        }
+        int input = takeValidInput();
         myVector.push_back(input);
     }
 
@@ -152,4 +130,28 @@ bool Interface::isEmpty() {
         return true;
     }
     return false;
+}
+
+int Interface::takeValidInput() {
+    int t;
+    while (true) {
+        cin >> t;
+        if (!cin.fail()) {
+            break;                                                    // If the input was valid, break the loop
+        }
+        else {
+            cout << "Invalid input. Please enter an integer.\n";
+            cin.clear();                                              // Clear the error flags
+            cin.ignore(100000000, '\n');      // Ignore the rest of the line
+        }
+    }
+    return t;
+}
+
+int Interface::takeValidInputInRange(int low, int high) {
+    int t = takeValidInput();
+
+    clamp(t, low, high);
+    cout << "T IS NOW" << t;
+    return t;
 }
