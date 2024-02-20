@@ -1,5 +1,6 @@
 #include "header.h"
 
+//PUBLIC:
 void IntVectorManipulation::minSubArrayLen(const vector<int>& nums, int target) {
 
     int n=nums.size();
@@ -46,6 +47,14 @@ void IntVectorManipulation::printProduct(const vector<int>& nums) {
     cout << preProduct[nums.size()] << endl << endl;
 }
 
+void IntVectorManipulation::print(const vector<int>& myArr) {
+    cout <<  "[\t";
+    for( int x : myArr ) {
+        cout << x << "\t";
+    }
+    cout << "]";
+}
+
 //PRIVATE:
 vector<int> IntVectorManipulation::makePreSum(const vector<int>& myArr) {
     int n = myArr.size();
@@ -84,12 +93,4 @@ int IntVectorManipulation::count(const vector<int>& myArr, int max) {
         answer += count;
     }
     return answer;
-}
-
-void IntVectorManipulation::print(const vector<int>& myArr) {
-    cout <<  "[\t";
-    for( int x : myArr ) {
-        cout << x << "\t";
-    }
-    cout << "]\n\n";
 }

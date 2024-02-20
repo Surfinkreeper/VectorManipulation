@@ -19,19 +19,44 @@ using namespace std;
 class IntVectorManipulation {
     public:
         static void minSubArrayLen(const vector<int>& nums, int target);                  //Prints the smallest length subarray whose sum is equal to or greater than target
-        static void numSubarrayBoundedMax(const vector<int>& nums, int left, int right);  //Prints the number of contiguous non-empty subarrays such that the value of the maximum   array element in that subarray is in the range [left, right]
+        static void numSubarrayBoundedMax(const vector<int>& nums, int left, int right);  //Prints the number of contiguous non-empty subarrays such that the value of the maximum array element in that subarray is in the range [left, right]
         static void productExceptSelf(const vector<int>& nums);                           //Prints an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i]
         static void printSum(const vector<int>& nums);
         static void printProduct(const vector<int>& nums);
+        static void print(const vector<int>& myArr);                   //Prints out the array
     
     private:
         static vector<int> makePreSum(const vector<int>& myArr);       //Makes and returns Pre Sum Array
         static vector<int> makePreProduct(const vector<int>& myArr);   //Makes and returns Pre Product Array
         static vector<int> makeSufProduct(const vector<int>& myArr);   //Makes and returns Suf Product Array (preproduct but backwards)
         static int count(const vector<int>& myArr, int max);           //Counts number of subarrays that dont have a number higher than max
-        static void print(const vector<int>& myArr);                   //Prints out the array
-
 };
+
+class Interface {
+    public:
+        Interface();
+        ~Interface();
+        void run();
+    private:
+        vector<vector<int>> vectorList;
+        bool addVector();
+        bool deleteVector();
+        void printVectors();
+        vector<int> returnChosenVector();
+        bool isEmpty();
+        enum MainMenuOption {
+            Exit,
+            Add_Vector,
+            Delete_Vector,
+            Print_Current_Vectors,
+            Print_Vector_Sum,
+            Print_Vector_Product,
+            Min_Subarray,
+            Subarray_Within_Range,
+            Product_NoSelf
+        };
+};
+              
 /*
 class Solution {
 public:
